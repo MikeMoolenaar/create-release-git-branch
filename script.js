@@ -4,6 +4,7 @@ import {execSync} from 'child_process';
 import semver from 'semver';
 
 const requiredGitBranch = 'main';
+const packageJsonPath = 'package.json'; // Gets current version from here
 
 function bumpVersion(currentVersion, bumpType) {
     return semver.inc(currentVersion, bumpType === 'hotfix' ? 'patch' : bumpType);
@@ -39,7 +40,7 @@ async function main() {
     }
 
     // Read the current version from package.json
-    const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
     const currentVersion = packageJson.version;
     if (!semver.valid(currentVersion)) {
         console.error(`Error: Invalid version in package.json: ${currentVersion}`);
