@@ -38,6 +38,9 @@ async function main() {
         console.error(`Error: You must be on the ${requiredGitBranch} branch`);
         return;
     }
+    
+    console.log('Pulling origin...');
+    execSync(`git pull origin ${requiredGitBranch} --rebase`);
 
     // Read the current version from package.json
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
